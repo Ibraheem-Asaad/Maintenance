@@ -17,8 +17,7 @@ DROPBOX_PATH = r'C:\Users\brhoo_000\Dropbox\Backup'
 USB_PATH = r'I:\Backup'
 
 BACKUP_PATHS = [
-    # r'C:\Programs',
-    # r'E:\Life',
+    r'E:\Notes',
     r'C:\Users\brhoo_000\Desktop',
     r'E:\Coding\Java\BumblebeeServer',
     r'E:\Coding\Python\Monitor',
