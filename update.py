@@ -1,56 +1,71 @@
 
+"""Fetch Eset Smart Security license key and copy it to clipboard"""
+
+from random import randint
 from Tkinter import Tk
 from lxml import html
 import requests
-import codecs
+
+PROVIDER_URL = 'http://www.nod325.com'
+CONVERTER_URL = 'https://my.eset.com/convert?culture=en-us'
 
 
-raw_input("Disable ESET firewall and protection, and press any key to continue...")
+def copy2clipboard(text):
+    """Copies text to clipboard"""
 
-provider_url = 'http://www.nod325.com'
-converter_url = 'https://my.eset.com/convert?culture=en-us'
+    interface = Tk()
+    interface.withdraw()  # don't popup screen window
+    interface.clipboard_clear()
+    interface.clipboard_append(text)
+    interface.update()  # now it stays on the clipboard after the window is closed
+    interface.destroy()
 
-session_requests = requests.session()
 
-print('Fetching username and password...')
+def scrape_credentials():
+    """Scrape Eset Nod32 username and password from PROVIDER_URL"""
 
-response = session_requests.get(provider_url)
-response.raise_for_status()
-provider_html = html.fromstring(response.content)
-item_index = 5 # in [2,9]
-credential1 = provider_html.xpath('//*[@id="post-31"]/div[3]/p[' + str(item_index) + ']/text()[1]')[0].replace('\n','')
-credential2 = provider_html.xpath('//*[@id="post-31"]/div[3]/p[' + str(item_index) + ']/text()[2]')[0].replace('\n','')
-assert(credential1[:9] == 'Username:')
-assert(credential2[:9] == 'Password:')
-username = credential1[9:]
-password = credential2[9:]
-print('Credentials found:-')
-print('Username: ' + username)
-print('Password: ' + password)
+    raw_input("Disable ESET firewall and protection, press Enter to continue...")
+    session_requests = requests.session()
+    print 'Fetching username and password...'
+    response = session_requests.get(PROVIDER_URL)
+    response.raise_for_status()
+    provider_html = html.fromstring(response.content)
+    item_index = randint(2, 9)
+    credential1 = provider_html.xpath(
+        '//*[@id="post-31"]/div[3]/p[' + str(item_index) + ']/text()[1]')[0].replace('\n', '')
+    credential2 = provider_html.xpath(
+        '//*[@id="post-31"]/div[3]/p[' + str(item_index) + ']/text()[2]')[0].replace('\n', '')
+    assert credential1[:9] == 'Username:'
+    assert credential2[:9] == 'Password:'
 
-print('Converting to license key...')
+    return credential1[9:], credential2[9:]
 
-response = session_requests.get(converter_url)
-response.raise_for_status()
-converter_html = html.fromstring(response.content)
-converter_form = converter_html.forms[0]
-payload = dict(converter_form.fields)
 
-payload['ctl00$body$txtLicKeyUsrn'] = username
-payload['ctl00$body$txtLicKeyPss'] = password
+def convert2key(username, password):
+    """Convert Eset Nod32 username and password to Eset Smart Security license key"""
 
-response = session_requests.post(converter_url, payload)
-response.raise_for_status()
+    session_requests = requests.session()
+    response = session_requests.get(CONVERTER_URL)
+    response.raise_for_status()
+    converter_html = html.fromstring(response.content)
+    converter_form = converter_html.forms[0]
+    payload = dict(converter_form.fields)
+    payload['UserName'] = username
+    payload['Password'] = password
+    response = session_requests.post(CONVERTER_URL, payload)
+    response.raise_for_status()
+    converted_html = html.fromstring(response.content)
+    return converted_html.get_element_by_id('body_lblLicenseKey').text
 
-converted_html = html.fromstring(response.content)
-# license_key = converted_html.xpath('//*[@id="body_lblLicenseKey"]')[0].text
-license_key = converted_html.get_element_by_id('body_lblLicenseKey').text
 
-r = Tk()
-r.withdraw() # don't popup screen window
-r.clipboard_clear()
-r.clipboard_append(license_key)
-r.update() # now it stays on the clipboard after the window is closed
-r.destroy()
+def fetch_key():
+    """Web scrape Eset Smart Security credentials and convert them to License Key"""
 
-print('License key was copied to clipboard')
+    username, password = scrape_credentials()
+    print 'Credentials found:-'
+    print 'Username: ' + username
+    print 'Password: ' + password
+    print 'Converting to license key...'
+    license_key = convert2key(username, password)
+    copy2clipboard(license_key)
+    print 'License key was copied to clipboard'
