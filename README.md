@@ -14,6 +14,7 @@ Automatic Weekly System Maintainance script:
     Choosing to either keep or delete old backups.
 
 
+
 2) Update Antivirus Software:
 
     Fetch ESET Nod32 credentials - username and password (using web scraping).
@@ -21,6 +22,7 @@ Automatic Weekly System Maintainance script:
     Convert the credentials to ESET Smart Security license key from the official ESET website.
     
     Copy the license key to clipboard.
+
 
 
 3) Clean the system:
