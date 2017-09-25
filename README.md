@@ -5,13 +5,13 @@ Automatic Weekly System Maintainance (AWSM) - spelled 'Awesome'
 
 ### 1) Back up folders:
 
-    Back up predefined folders in the current machine to: Dropbox / OneDrive / Flash Drive (or any combination of them).
+Back up predefined folders in the current machine to: Dropbox / OneDrive / Flash Drive (or any combination of them).
     
-    Store the folders with their metadata (relative path on the machine, date of back up).
+Store the folders with their metadata (relative path on the machine, date of back up).
     
-    Copies only a shell of files bigger than a predefined limit.
+Copies only a shell of files bigger than a predefined limit.
     
-    Choosing to either keep or delete old backups.
+Choosing to either keep or delete old backups.
 
 
 
