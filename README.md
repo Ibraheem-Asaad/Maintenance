@@ -3,7 +3,7 @@
 Automatic Weekly System Maintainance (AWSM) - spelled 'Awesome'
 
 
-## 1) Back up folders:
+### 1) Back up folders:
 
     Back up predefined folders in the current machine to: Dropbox / OneDrive / Flash Drive (or any combination of them).
     
