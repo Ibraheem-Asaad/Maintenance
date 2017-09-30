@@ -1,6 +1,6 @@
 # Maintenance script
 
-Automatic Weekly System Maintainance (AWSM) - spelled 'Awesome'
+## Automatic Weekly System Maintainance (AWSM) - spelled 'Awesome'
 
 ### 1) Back up folders:
 
