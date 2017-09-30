@@ -25,3 +25,7 @@ Copy the license key to clipboard.
 ### 3) Clean the system:
 
 Run CCleaner software.
+
+#### Used libraries:
+
+fnmatch, glob, lxml, os, random, requests, shutil , sys, time, Tkinter
