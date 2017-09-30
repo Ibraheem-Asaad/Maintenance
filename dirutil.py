@@ -18,7 +18,7 @@ def generate_name(path):
 #     """Generate folder patter for deleting old backups"""
 #     return path.replace(':', '').replace('\\', '.') + ' (*)'
 
-
+# TODO: use the new pattern to delete old backups
 def generate_name_pattern():
     """Generate folder patter for deleting old backups"""
     return '(*.*.*) *'
@@ -31,6 +31,7 @@ def copydir(src, dest):
     mkdir(new_folder)
     dest = new_folder
     for name in listdir(src):
+        # TODO: make sure it's not hidden
         if not fnmatch(name, '~*') and not fnmatch(name, '.*'):
             src_path = path.join(src, name)
             if path.isdir(src_path):
