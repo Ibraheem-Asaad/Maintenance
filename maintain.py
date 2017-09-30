@@ -34,7 +34,7 @@ for backup_target in BACKUP_TARGETS:
     for backup_path in BACKUP_PATHS:
         copydir(backup_path, backup_target)
         if ARG_FLAG['clean']:
-            OLD_BACKUPS = glob(generate_name_pattern(backup_path))
+            OLD_BACKUPS = glob(generate_name_pattern())
             if len(OLD_BACKUPS) > 0:
                 print 'Found older backups in ' + backup_target + ':-'
                 print OLD_BACKUPS

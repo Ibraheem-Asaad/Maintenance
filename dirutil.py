@@ -14,10 +14,6 @@ def generate_name(path):
     return '(' + strftime('%x').replace('/', '.') + ') ' + path.replace(':', '').replace('\\', '.')
 
 
-# def generate_name_pattern(path):
-#     """Generate folder patter for deleting old backups"""
-#     return path.replace(':', '').replace('\\', '.') + ' (*)'
-
 # TODO: use the new pattern to delete old backups
 def generate_name_pattern():
     """Generate folder patter for deleting old backups"""
