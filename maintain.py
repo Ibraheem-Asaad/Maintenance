@@ -9,7 +9,7 @@ from update import fetch_key
 from arg import parse_flags
 from dirutil import copydir, generate_name_pattern, generate_name
 from configs import BACKUP_PATHS, CCLEANER_PATH, DEFAULT_ARG_FLAG, DROPBOX_PATH, \
-    DROPBOX_CLIENT_PATH, ONEDRIVE_PATH, USB_PATH
+    ONEDRIVE_PATH, USB_PATH
 
 # If no flags were provided, use the default configurations
 if len(ARGV) == 1:

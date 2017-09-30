@@ -10,12 +10,18 @@ from configs import MAX_FILE_SIZE
 
 def generate_name(path):
     """Generate folder name based on it's path and creation date"""
-    return path.replace(':', '').replace('\\', '.') + ' (' + strftime('%x').replace('/', '.') + ')'
+    # TODO: change date to y-m-d
+    return '(' + strftime('%x').replace('/', '.') + ') ' + path.replace(':', '').replace('\\', '.')
 
 
-def generate_name_pattern(path):
+# def generate_name_pattern(path):
+#     """Generate folder patter for deleting old backups"""
+#     return path.replace(':', '').replace('\\', '.') + ' (*)'
+
+
+def generate_name_pattern():
     """Generate folder patter for deleting old backups"""
-    return path.replace(':', '').replace('\\', '.') + ' (*)'
+    return '(*.*.*) *'
 
 
 def copydir(src, dest):
