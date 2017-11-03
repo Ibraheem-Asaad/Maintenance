@@ -70,5 +70,6 @@ def fetch_key():
     copy2clipboard(license_key)
     print 'License key was copied to clipboard'
 
+
 if __name__ == '__main__':
     fetch_key()

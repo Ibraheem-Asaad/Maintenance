@@ -6,11 +6,11 @@
 
 Back up predefined folders in the current machine to: Dropbox / OneDrive / Flash Drive (or any combination of them).
     
-Store the folders with their metadata (relative path on the machine, date of back up).
+Store the folders named as their relative path on the machine.
     
 Copies only a shell of files bigger than a predefined limit.
     
-Choosing to either keep or delete old backups.
+Keeps up to one old backup.
 
 
 ### 2) Update Antivirus Software:
@@ -25,6 +25,7 @@ Copy the license key to clipboard.
 ### 3) Clean the system:
 
 Run CCleaner software.
+
 
 #### Used libraries:
 

@@ -2,55 +2,54 @@
 """System Maintainance script - Clean, Backup, Update"""
 
 from sys import argv as ARGV
-from os import chdir, path, rename, system
-from shutil import rmtree
-from glob import glob
+from os import chdir, system
 from update import fetch_key
 from arg import parse_flags
-from dirutil import copydir, generate_name_pattern, generate_name
+from dirutil import copydir, cleandir
 from configs import BACKUP_PATHS, CCLEANER_PATH, DEFAULT_ARG_FLAG, DROPBOX_PATH, \
     ONEDRIVE_PATH, USB_PATH
 
-# If no flags were provided, use the default configurations
-if len(ARGV) == 1:
-    ARG_FLAG = DEFAULT_ARG_FLAG
-else:
-    ARGV, ARG_FLAG = parse_flags(
-        ARGV, ['cclean', 'clean', 'dropbox', 'onedrive', 'update', 'usb'])
 
-BACKUP_TARGETS = []
-if ARG_FLAG['onedrive']:
-    BACKUP_TARGETS.append(ONEDRIVE_PATH)
-if ARG_FLAG['dropbox']:
-    raw_input("Start Dropbox, press Enter to continue...")
-    BACKUP_TARGETS.append(DROPBOX_PATH)
-if ARG_FLAG['usb']:
-    raw_input("Insert a flash drive, press Enter to continue...")
-    BACKUP_TARGETS.append(USB_PATH)
+def main():
+    """System Maintainance script - Clean, Backup, Update"""
+    # If no flags were provided, use the default configurations
+    global ARGV
+    argv = ARGV
+    if len(argv) == 1:
+        arg_flag = DEFAULT_ARG_FLAG
+    else:
+        argv, arg_flag = parse_flags(
+            argv, ['cclean', 'clean', 'dropbox', 'onedrive', 'update', 'usb'])
 
-# TODO: change to overwrite changed files
-for backup_target in BACKUP_TARGETS:
-    chdir(backup_target)
-    for backup_path in BACKUP_PATHS:
-        copydir(backup_path, backup_target)
-        if ARG_FLAG['clean']:
-            OLD_BACKUPS = glob(generate_name_pattern())
-            if len(OLD_BACKUPS) > 0:
-                print 'Found older backups in ' + backup_target + ':-'
-                print OLD_BACKUPS
-                if raw_input("Delete? (y/n) :>") == 'y':
-                    for old_backup in OLD_BACKUPS:
-                        rmtree(old_backup)
-        rename(path.basename(backup_path), generate_name(backup_path))
+    backup_targets = []
+    if arg_flag['onedrive']:
+        backup_targets.append(ONEDRIVE_PATH)
+    if arg_flag['dropbox']:
+        raw_input("Start Dropbox, press Enter to continue...")
+        backup_targets.append(DROPBOX_PATH)
+    if arg_flag['usb']:
+        raw_input("Insert a flash drive, press Enter to continue...")
+        backup_targets.append(USB_PATH)
 
-if ARG_FLAG['update']:
-    fetch_key()
+    for backup_target in backup_targets:
+        chdir(backup_target)
+        if arg_flag['clean']:
+            cleandir(backup_target)
+        for backup_path in BACKUP_PATHS:
+            copydir(backup_path, backup_target)
 
-if ARG_FLAG['cclean']:
-    raw_input("Close any open browsers, press Enter to continue...")
-    chdir(CCLEANER_PATH)
-    system('CCleaner64 /auto')
-    print 'Ccleaner is running in the background...'
-    raw_input("Clean registery and restart!")
+    if arg_flag['update']:
+        fetch_key()
 
-print 'Maintainance was completed successfully'
+    if arg_flag['cclean']:
+        raw_input("Close any open browsers, press Enter to continue...")
+        chdir(CCLEANER_PATH)
+        system('CCleaner64 /auto')
+        print 'Ccleaner is running in the background...'
+        raw_input("Clean registery and restart!")
+
+    print 'Maintainance was completed successfully'
+
+
+if __name__ == '__main__':
+    main()
