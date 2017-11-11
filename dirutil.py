@@ -23,13 +23,18 @@ def generate_old_name_pattern():
     return '_*'
 
 
+def renamedir(dest):
+    """Rename old backups"""
+    # TODO: sort by name length to avoid duplicates
+    for name in listdir(dest):
+        rename(name, generate_old_name(name))
+
+
 def cleandir(dest):
-    """Rename old backups and delete older ones"""
+    """Delete older backups"""
     old_backups = glob(generate_old_name_pattern())
     for old_backup in old_backups:
         rmtree(old_backup)
-    for name in listdir(dest):
-        rename(name, generate_old_name(name))
 
 
 def copydir(src, dest):

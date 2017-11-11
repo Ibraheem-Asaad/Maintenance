@@ -3,7 +3,7 @@
 
 DEFAULT_ARG_FLAG = {
     'cclean': True,
-    'clean': True,
+    'clean': False,
     'dropbox': True,
     'onedrive': True,
     'update': True,
