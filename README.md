@@ -10,7 +10,7 @@ Store the folders named as their relative path on the machine.
     
 Copies only a shell of files bigger than a predefined limit.
     
-Keeps up to one old backup.
+Can keep all previous backups or only the most recent one.
 
 
 ### 2) Update Antivirus Software:
