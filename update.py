@@ -6,7 +6,7 @@ from Tkinter import Tk
 from lxml import html
 import requests
 
-#TODO: check again in a month, and change provider url and xpath if needed
+# TODO: check again in a month, and change provider url and xpath if needed
 PROVIDER_URL = 'http://www.nod325.com'
 CONVERTER_URL = 'https://my.eset.com/convert?culture=en-us'
 
